@@ -1,0 +1,42 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 3,
+  "framework": null,
+  "buildCommand": "bash vercel-build.sh",
+  "outputDirectory": "public",
+  "functions": {
+    "index.php": {
+      "runtime": "vercel-php@0.7.0",
+      "memory": 1024,
+      "maxDuration": 30,
+      "includeFiles": [
+        "vendor/**/*",
+        "app/**/*",
+        "bootstrap/**/*",
+        "config/**/*",
+        "database/**/*",
+        "routes/**/*",
+        "resources/**/*",
+        "storage/**/*",
+        "artisan"
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.php"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/build/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
